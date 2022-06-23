@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cc_tracker/CCData.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -18,9 +19,10 @@ class CCListState extends State<CCList>{
 
   @override
   Widget build(BuildContext context){
+    String? version = dotenv.env['VERSION'];
     return Scaffold(
       appBar: AppBar(
-        title: const Text('CC Tracker'),
+        title: Text('Cryptocurrency tracker $version'),
       ),
       body: ListView(
         children: _buildList(),
@@ -32,16 +34,18 @@ class CCListState extends State<CCList>{
     );
   }
 
+String? apiKey = dotenv.env['CC_API_KEY'];
   Map<String, String> get headers => {
-    'X-CMC_PRO_API_KEY': '',
+    'X-CMC_PRO_API_KEY': apiKey.toString(),
   };
 
-  _loadCC() async{
+  _loadCC() async {
+    String? listRoute = dotenv.env['CC_LIST_ROUTE'];
     final response = await http.get(
-      Uri.parse('https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'),
+      Uri.parse('$listRoute'),
       headers: headers,
     );
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       var responseData= json.decode(response.body);
       var allData = responseData['data'] as List<dynamic>;
       List<CCData> ccDataList = [];
@@ -54,10 +58,15 @@ class CCListState extends State<CCList>{
             price: val['quote']['USD']['price']
         );
         ccDataList.add(record);
+      }
+      setState(() {
         data = ccDataList;
+      });
+      if (kDebugMode) {
+        print('CC Data is loaded!');
       }
     }
-}
+  }
 
   List<Widget> _buildList() {
     return data.map((CCData f) => ListTile(
