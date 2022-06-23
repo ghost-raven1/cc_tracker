@@ -1,6 +1,6 @@
 # cc_tracker
 
-A new Flutter project.
+Приложение для просмотра стоимости криптовалют
 
 ## Getting Started
 
