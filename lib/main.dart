@@ -1,15 +1,20 @@
 import 'package:cc_tracker/CCList.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() => runApp(const CCTracker());
+void main() async {
+  await dotenv.load(fileName: '.env');
+  runApp(const CCTracker());
+}
 
 class CCTracker extends StatelessWidget{
   const CCTracker({Key? key}): super(key: key);
 
   @override
   Widget build(BuildContext context){
+    String? version = dotenv.env['VERSION'];
     return MaterialApp(
-      title: 'CC Tracker',
+      title: 'Cryptocurrency tracker $version',
       theme: ThemeData(
         primarySwatch: Colors.blue
       ),
