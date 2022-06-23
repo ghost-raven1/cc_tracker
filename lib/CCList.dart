@@ -76,5 +76,11 @@ String? apiKey = dotenv.env['CC_API_KEY'];
       trailing: Text('\$${f.price.toStringAsFixed(4)}'),
     )).toList();
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCC();
+  }
 }
 
