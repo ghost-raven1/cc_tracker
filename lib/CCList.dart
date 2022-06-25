@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cc_tracker/CCData.dart';
@@ -74,7 +75,11 @@ String? apiKey = dotenv.env['CC_API_KEY'];
     return data.map((CCData f) => ListTile(
       title: Text(f.symbol),
       subtitle: Text(f.name),
-      leading: CircleAvatar(child: Text(f.rank.toString())),
+      leading: CircleAvatar(
+          backgroundColor: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+          child: Text(
+              style: const TextStyle(fontWeight: FontWeight.bold),
+              f.rank.toString())),
       trailing: Text('\$${f.price.toStringAsFixed(4)}'),
     )).toList();
   }
