@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cc_tracker/CCData.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -60,6 +61,7 @@ String? apiKey = dotenv.env['CC_API_KEY'];
         ccDataList.add(record);
       }
       setState(() {
+        HapticFeedback.heavyImpact();
         data = ccDataList;
       });
       if (kDebugMode) {

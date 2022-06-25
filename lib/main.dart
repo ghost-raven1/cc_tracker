@@ -15,9 +15,8 @@ class CCTracker extends StatelessWidget{
     String? version = dotenv.env['VERSION'];
     return MaterialApp(
       title: 'Cryptocurrency tracker $version',
-      theme: ThemeData(
-        primarySwatch: Colors.blue
-      ),
+        debugShowCheckedModeBanner: false,
+      theme: ThemeData(primarySwatch: Colors.blue),
       home: const CCList()
     );
   }

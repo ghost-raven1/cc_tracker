@@ -1,7 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.ghost1.cc_tracker">
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
    <application
-        android:label="cc_tracker"
+        android:label="Cryptocurrency tracker"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
